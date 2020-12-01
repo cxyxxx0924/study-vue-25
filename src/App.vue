@@ -6,8 +6,10 @@
     </div>
     <p @click="$store.commit('add')">{{$store.state.counter}}</p>
     <p @click="$store.dispatch('add')">async: {{$store.state.counter}}</p>
-    <!-- <p>double counter: {{ $store.getters }}</p> -->
-    <router-view/>
+    <!-- <p>double counter: {{ $store.getters.doubleCount }}</p> -->
+    <!-- <p>double counter: {{ $store.getters('doubleCount') }}</p> -->
+    <p>threebel counter: {{ $store.getters.threebelCount }}</p>
+    <!-- <router-view/> -->
   </div>
 </template>
 

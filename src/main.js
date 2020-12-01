@@ -3,7 +3,8 @@ import App from './App.vue'
 import './plugins/element.js'
 
 // import router from './router'
-import router from './krouter'
+// import router from './krouter'
+import router from './rrouter'
 
 // import store from './store'
 import store from './kstore'

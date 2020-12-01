@@ -8,47 +8,48 @@ class Store {
     // this.$options = options
     this._mutations = options.mutations
     this._actions = options.actions
-    // this._getters = options.getters
+    this._getters = options.getters
     // 2.响应式state
     this._vm = new Vue({
       data: {
         $$state: options.state
       },
-      methods: {
-        ...options.getters
-      },
+      // methods: {
+      //   ...this.initGetters(options.getters)
+      // },
+      computed: this.initGetters(options.getters)
+      
     })
-    // console.log('...options.getters');
-    // console.log(...options.getters);
+    console.log('this.initGetters(this._getters)');
+    console.log(this.initGetters(this._getters));
 
     this.commit = this.commit.bind(this)
     this.dispatch = this.dispatch.bind(this)
-    // this.getters = this.getters.bind(this)
+    
   }
 
   get state() {
-    console.log(this._vm._data);
+    // console.log(this._vm._data);
     return this._vm._data.$$state
+  }
+
+  get getters() {
+    return this._vm
   }
 
   set state(v) {
     console.error('please use replaceState to reset state');
   }
 
-  get getters(arg) {
-    console.log(this._vm.$options.methods[arg]);
-    return this._vm.$options.methods[arg]
-  }
-
-  // getters(type) {
+  // getters(type, payload) {
   //   const entry = this._getters[type]
-  //   console.log("run here")
+
   //   if (!entry) {
-  //     console.error('unkwnow getters type');
+  //     console.error('unkwnow mutation type');
   //     return
   //   }
 
-  //   return entry(this._vm.methods[arg](type));
+  //   return entry(this.state, payload); 
   // }
 
   commit(type, payload) {
@@ -58,7 +59,6 @@ class Store {
       console.error('unkwnow mutation type');
       return
     }
-
     entry(this.state, payload)
   }
 
@@ -73,6 +73,15 @@ class Store {
     entry(this, payload)
   }
 }
+
+Store.prototype.initGetters = function(getters) {
+  let method = {};
+  Object.keys(getters).forEach(key => {
+    method[key] = () => getters[key](this.state)
+  })
+  return method;
+}
+
 function install(_Vue) {
   Vue = _Vue
 
