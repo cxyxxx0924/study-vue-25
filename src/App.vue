@@ -9,7 +9,7 @@
     <!-- <p>double counter: {{ $store.getters.doubleCount }}</p> -->
     <!-- <p>double counter: {{ $store.getters('doubleCount') }}</p> -->
     <p>threebel counter: {{ $store.getters.threebelCount }}</p>
-    <!-- <router-view/> -->
+    <router-view/>
   </div>
 </template>
 
