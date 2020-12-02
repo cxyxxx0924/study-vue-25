@@ -14,7 +14,6 @@ class VueRouter {
     console.log(this.current);
     console.log(way);
   }
-
 }
 
 VueRouter.install = function (_Vue) {
@@ -34,8 +33,6 @@ VueRouter.install = function (_Vue) {
       },
     },
     render(h) {
-      console.log('h');
-      console.log(h);
       return h('a', {
         attrs: {
           href: '#' + this.to
